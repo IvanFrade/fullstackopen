@@ -1,2 +1,3 @@
 # fullstackopen
-Full stack open course exercises
+
+Exercises for fullstackopen.com
