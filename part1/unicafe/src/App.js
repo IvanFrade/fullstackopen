@@ -15,21 +15,23 @@ const Statistics = ({ good, neutral, bad }) => {
   if (count === 0) return <div>No feedback given</div>
 
   return (
-    <>
-      <StatisticLine text='good' value={good} /><br />
-      <StatisticLine text='neutral' value={neutral} /><br />
-      <StatisticLine text='bad' value={bad} /><br />
-      <StatisticLine text='total' value={count} /><br />
-      <StatisticLine text='average' value={sum / count} /><br />
-      <StatisticLine text='positive' value={good / count * 100} /> %<br />
-    </>
+    <table>
+      <tbody>
+        <StatisticLine text='good' value={good} />
+        <StatisticLine text='neutral' value={neutral} />
+        <StatisticLine text='bad' value={bad} />
+        <StatisticLine text='total' value={count} />
+        <StatisticLine text='average' value={sum / count} />
+        <StatisticLine text='positive' value={good / count * 100 + "%"} />
+      </tbody>
+    </table>
   )
 }
 
 const StatisticLine = ({ text, value }) => (
-  <>
-    {text} {value}
-  </>
+  <tr>
+    <td>{text}</td><td>{value}</td>
+  </tr>
 )
 
 const App = () => {
