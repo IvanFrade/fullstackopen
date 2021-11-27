@@ -8,14 +8,22 @@ const Button = ({ handleClick, text }) => (
   </button>
 )
 
-const Statistics = ({ good, neutral, bad }) => (
-  <>
-    <Title value='Statistics' />
-    <Counter text='good' counter={good} />
-    <Counter text='neutral' counter={neutral} />
-    <Counter text='bad' counter={bad} />
-  </>
-)
+const Statistics = ({ good, neutral, bad }) => {
+  let count = good + neutral + bad
+  let sum = good - bad
+
+  return (
+    <>
+      <Title value='Statistics' />
+      <Counter text='good' counter={good} />
+      <Counter text='neutral' counter={neutral} />
+      <Counter text='bad' counter={bad} />
+      <Counter text='total' counter={count} />
+      <Counter text='average' counter={sum / count} />
+      <Counter text='positive %' counter={good / count * 100} />
+    </>
+  )
+}
 
 const Counter = ({ text, counter }) => (
   <>
