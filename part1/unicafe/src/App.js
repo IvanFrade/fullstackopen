@@ -12,6 +12,13 @@ const Statistics = ({ good, neutral, bad }) => {
   let count = good + neutral + bad
   let sum = good - bad
 
+  if (count === 0) return (
+    <>
+      <Title value='Statistics' />
+      <div>No feedback given</div>
+    </>
+  )
+
   return (
     <>
       <Title value='Statistics' />
