@@ -6,6 +6,13 @@ const Button = ({ handleClick, text }) => (
   </button>
 )
 
+const Anecdote = ({ anecdotes, votes, index }) => (
+  <>
+    <p>{anecdotes[index]}</p>
+    <p>Has {votes[index]} votes</p>
+  </>
+)
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often', 
@@ -14,7 +21,8 @@ const App = () => {
     'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.', 
     'Premature optimization is the root of all evil', 
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enoguh to debug it.', 
-    'Programming without an extremenly heavy use of console.log is the same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.'
+    'Programming without an extremenly heavy use of console.log is the same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.', 
+    'Hello world'
   ]
 
   const [selected, setSelected] = useState(0)
@@ -26,15 +34,17 @@ const App = () => {
     const copy = [...votes]
     copy[selected]++
     setVotes(copy)
-    console.log(votes)
   }
 
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
-      <p>Has {votes[selected]} votes</p>
+      <h1>Anecdote of the day</h1>
+      <Anecdote anecdotes={anecdotes} votes={votes} index={selected} />
       <Button handleClick={handleVote} text='Vote' />
       <Button handleClick={nextAnecdote} text='Next anecdote' />
+
+      <h1>Anecdote with most votes</h1>
+      <Anecdote anecdotes={anecdotes} votes={votes} index={votes.indexOf(Math.max(...votes))} />
     </div>
   )
 }
