@@ -13,7 +13,10 @@ const App = () => {
       name: newName
     }
 
-    setPersons(persons.concat(personObject))
+    persons.some(person => person.name === personObject.name)
+    ? alert(`${newName} has already been added to the notebook!`)
+    : setPersons(persons.concat(personObject))
+    
     setNewName('')
   }
 
