@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react"
 import axios from 'axios'
 import Filter from "./components/Filter"
+import Button from "./components/Button"
 
-const Countries = ({ countries, filter }) => {
-  const filteredCountries = countries
+const Countries = ({ countries, setFilter, filter }) => {
+  let filteredCountries = countries
                             .filter(country => country.name.common.toLowerCase()
                             .includes(filter))
   
@@ -20,9 +21,11 @@ const Countries = ({ countries, filter }) => {
   if (filteredCountries.length < 11)
     return (
       <div>
-        {filteredCountries.map(country => 
-                                  <p key={country.cca2}>{country.name.common}</p>
-        )}
+        {filteredCountries.map(country => (
+                                  <p key={country.cca2}>
+                                    {country.name.common} <Button text="show" onClick={() => setFilter(country.name.common.toLowerCase())} />
+                                  </p>
+        ))}
       </div>
     )
 
@@ -60,7 +63,7 @@ const App = () => {
   return (
     <div>
       <Filter filter={filter} handle={handleFilterChange} />
-      <Countries countries={countries} filter={filter} />
+      <Countries countries={countries} setFilter={setFilter} filter={filter} />
     </div>
   )
 }
