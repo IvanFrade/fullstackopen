@@ -9,9 +9,9 @@ const getAll = () => {
         .catch(error => console.log(error))
 }
 
-const create = (newObject) => {
+const create = (newPerson) => {
     return axios
-        .post(baseUrl, newObject)
+        .post(baseUrl, newPerson)
         .then(response => response.data)
         .catch(error => console.log(error))
 }
@@ -23,6 +23,13 @@ const deleteFromServer = (id) => {
         .catch(error => console.log(error))
 }
 
-const exportedObject = { getAll, create, deleteFromServer }
+const update = (newPerson) => {
+    return axios   
+        .put(baseUrl + newPerson.id, newPerson)
+        .then(request => request.data)
+        .catch(error => console.log(error))
+}
+
+const exportedObject = { getAll, create, deleteFromServer, update }
 
 export default exportedObject

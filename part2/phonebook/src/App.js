@@ -18,22 +18,33 @@ const App = () => {
 
   const addPerson = event => {
     event.preventDefault()
+    const alreadyExists = persons.find(person => person.name === newName)
 
-    const personObject = {
-      name: newName, 
-      number: newNumber, 
-      id: persons[persons.length - 1].id + 1
+    if (alreadyExists) {
+      if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)) { 
+        personService
+          .update({...alreadyExists, number: newNumber})
+          .then(response => setPersons(persons
+                                        .map(person => person.id === response.id ? response : person))) // wow this actually works wtf?
+
+        setNewName('')
+        setNewNumber('')
+      }
     }
+    else {
+      const personObject = {
+        name: newName, 
+        number: newNumber, 
+        id: persons[persons.length - 1].id + 1
+      }
 
-    persons.some(person => person.name === personObject.name)
-    ? alert(`${newName} has already been added to the notebook!`)
-    : personService
+      personService
         .create(personObject)
-        .then(returnedPerson => {
-          setPersons(persons.concat(returnedPerson))
-          setNewName('')
-          setNewNumber('')
-        })
+        .then(returnedPerson => setPersons(persons.concat(returnedPerson)))
+
+      setNewName('')
+      setNewNumber('')
+    }
     
   }
 
