@@ -16,7 +16,7 @@ const App = () => {
       .then(initialPersons => setPersons(initialPersons))
   }, [])
 
-  const addPerson = (event) => {
+  const addPerson = event => {
     event.preventDefault()
 
     const personObject = {
@@ -37,6 +37,14 @@ const App = () => {
     
   }
 
+  const deletePerson = (id) => {
+    if (window.confirm(`Delete ${persons.find(person => person.id === id).name}?`)) {
+      personService
+          .deleteFromServer(id)
+      setPersons(persons.filter(person => person.id !== id))
+    }
+  }
+
   const handleFilterChange = (event) => setFilter(event.target.value.toLowerCase())
   const handleNameChange = (event) => setNewName(event.target.value)
   const handleNumberChange = (event) => setNewNumber(event.target.value)
@@ -53,7 +61,7 @@ const App = () => {
                   handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <Persons persons={persons} filter={filter} />
+      <Persons persons={persons} filter={filter} deletePerson={deletePerson}/>
     </div>
   )
 }
