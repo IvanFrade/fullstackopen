@@ -1,14 +1,19 @@
-import React from "react";
-import InputForm from "./InputForm";
-
-const PersonForm = (props) => (
-    <form onSubmit={props.addPerson}>
+const PersonForm = ({ addNumber, newName, handleNewName, newNumber, handleNewNumber }) => (
+    <form onSubmit={addNumber}>
       <div>
-        name: <InputForm value={props.newName} onChangeFunction={props.handleNameChange} /><br />
-        number: <InputForm value={props.newNumber} onChangeFunction={props.handleNumberChange} />
+        name: <input 
+          value={newName}
+          onChange={handleNewName}
+        />
       </div>
-      <button type="submit">add</button>
+      <div>
+        number: <input
+          value={newNumber}
+          onChange={handleNewNumber}
+        />
+      </div>
+      <button type='submit'>add</button>
     </form>
-)
+  )
 
-export default PersonForm
+  export default PersonForm
